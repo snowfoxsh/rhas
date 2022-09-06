@@ -1,4 +1,6 @@
 mod token;
+mod lexer;
+mod tree_parser;
 
 fn its_true() -> bool {
     true
