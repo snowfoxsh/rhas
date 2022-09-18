@@ -6,6 +6,7 @@ use nom::IResult;
 use nom::multi::many0;
 use nom::number::complete::double;
 
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Token {
     Operator(Operator),
