@@ -22,7 +22,8 @@ pub enum Node {
     Variable(String),
     Number(f64),
     Function(String, Vec<f64>),
-    List(Vec<f64>)
+    List(Vec<f64>),
+    Matrix(Vec<Node>),
 }
 
 // pub fn take_while<F, Input, Error: ParseError<Input>>(

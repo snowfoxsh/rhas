@@ -86,6 +86,19 @@ pub fn list(input: &str) -> IResult<&str, Node> {
     })(input)
 }
 
+pub fn matrix(input: &str) -> IResult<&str, Node> {
+    //TODO: add check for matrixes to have even internal list lens
+    let parser = delimited(
+        tag("#["), 
+        separated_list0(char(','), list), 
+        char(']')
+    );
+
+    map(parser, |mat| {
+        Node::Matrix(mat)
+    })(input)
+}
+
 
 // pub fn expression(input: &str) -> IResult<>
 // // pub fn matrix(input: &str) -> IResult<&str, Node> {
@@ -129,6 +142,11 @@ mod tests {
     #[test]
     fn test_list() {
         println!("{:?}", list("[1,3,4,2.322]"));
+    }
+
+    #[test]
+    fn test_matrix() {
+        println!("{:?}", matrix("#[[1,2],[1,3]]"));
     }
 
     #[test]
