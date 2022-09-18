@@ -74,11 +74,17 @@ pub fn function(input: &str) -> IResult<&str, Node> {
 }
 
 
-// pub fn list(input: &str) -> IResult<&str, Vec<Node>> {
-//     let parser = separated_list1(char(','), )
+pub fn list(input: &str) -> IResult<&str, Node> {
+    let parser = delimited(
+        char('['), 
+        separated_list0(char(','), double), 
+        char(']')
+    );
 
-//     unimplemented!()
-// }
+    map(parser, |exp| {
+        Node::List(exp)
+    })(input)
+}
 
 
 // pub fn expression(input: &str) -> IResult<>
@@ -86,15 +92,17 @@ pub fn function(input: &str) -> IResult<&str, Node> {
 //     // let parser = 
 // // }
 
+
 pub fn parse(input: &str) -> Vec<Node> {
     let (rest, out) = many0(alt((
+        list,
         function,
         number,
         operator,
         variable,
     )))(input).unwrap();
 
-    assert!(rest.is_empty());
+    println!("{rest}");
 
     out
 }
@@ -119,8 +127,13 @@ mod tests {
     }
 
     #[test]
+    fn test_list() {
+        println!("{:?}", list("[1,3,4,2.322]"));
+    }
+
+    #[test]
     fn test_all() {
-        println!("{:?}", parse("x^2+sin(3)"));
-        
+        println!("{:?}", parse("x^2+sin(3)+[1,3,4]"));
+
     }
 }

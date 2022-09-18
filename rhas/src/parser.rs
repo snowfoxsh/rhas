@@ -21,7 +21,8 @@ pub enum Node {
     Operator(Operator),
     Variable(String),
     Number(f64),
-    Function(String, Vec<f64>)
+    Function(String, Vec<f64>),
+    List(Vec<f64>)
 }
 
 // pub fn take_while<F, Input, Error: ParseError<Input>>(
